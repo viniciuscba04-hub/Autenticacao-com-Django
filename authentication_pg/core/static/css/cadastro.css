@@ -1,0 +1,38 @@
+.cadastro-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    text-align: center;
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.alinhar {
+    margin-right: 10px;
+}
+
+
+.btn {
+    width: 70px;
+    background-color: #cb9530;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.email-exists {
+    color: red;
+}

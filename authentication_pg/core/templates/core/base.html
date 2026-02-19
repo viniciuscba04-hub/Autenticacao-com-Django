@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block css %} 
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% endblock %}
+    <title>{% block title %}inicial{% endblock %}</title>
+</head>
+
+<body>
+    {% block content %}
+    <main>
+        <h1>Autenticação</h1>
+
+        <div>
+            <a href="{% url 'login' %}" class="login-btn">Login</a>
+            <a href="{% url 'cadastro' %}" class="register-btn">Cadastrar</a>
+        </div>
+    </main>
+    {% endblock %}
+</body>
+</html>

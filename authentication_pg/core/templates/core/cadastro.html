@@ -1,0 +1,48 @@
+{% extends "core/base.html" %}
+
+{% block css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/cadastro.css' %}">
+{% endblock %}
+
+{% block title %}Cadastre-se{% endblock %}
+
+<body>
+  {% block content %}
+  <section class="cadastro-container">
+    <form action="{% url 'cadastro' %}" method="POST" class="form">
+        {% csrf_token %}
+
+      <div>
+        <label>Nome</label>
+        <input type="text" name="nome" placeholder="Seu nome">
+      </div>
+
+      <div>
+        <label>Email</label>
+        <input type="email" name="email" placeholder="Seu email">
+        {% if messages %}
+          <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.info %} class="{{ message.info }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+
+      <div>
+        <label>Senha</label>
+        <input type="password1" name="senha" placeholder="Sua senha">
+      </div>
+
+      <div>
+        <label class="alinhar" >Confirme</label>
+        <input type="password2" name="senhacheck" placeholder="Confirme sua senha">
+      </div>
+
+      <button class="btn" type="submit">Enviar</button>
+
+    </form>
+  </section>
+  {% endblock %}
+</body>
