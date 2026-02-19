@@ -4,10 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from . import tags
 from django.http import HttpResponse
-
-
-
-
+import re
+from django.shortcuts import redirect
 
 # Create your views here.
 
@@ -19,28 +17,61 @@ def index(request):
 
 def cadastro(request):
     if request.method == 'POST':
-        nome = request.POST.get('nome')
-        email = request.POST.get('email')
-        senha1 = request.POST.get('senha1')
-        senha2 = request.POST.get('senha2')
-        campo_vazio()
 
-        def campo_vazio(request):
-            vazio = {}
-            for campo, valor in request.POST.items():
-                if campo != 'csrfmiddlewaretoken' and valor.strip() == '':
-                    vazio[campo] = True
-            return render(request, 'core/cadastro.html', {vazio:'vazio'})
-    
-        if User.objects.filter(email=email).exists():   
-            messages.info(request, 'Já existe uma conta com esse email')
-        elif len(senha1) < 8 or len(senha1) > 12:
-            return HttpResponse('Ok, sua senha deve ter entre 8 e 12 digitos')
-        elif senha1 != senha2:
-            return HttpResponse('Ok, suas senhas estão diferentes')
-        else:
-            return HttpResponse('Ok, aguarde atualizações')
+        check = True
+        aviso = 0
+        vazio = {}
+
+        nome = request.POST.get('nome', '').strip()
+        email = request.POST.get('email', '').strip()
+        senha1 = request.POST.get('senha1', '')
+        senha2 = request.POST.get('senha2', '')
+
+        for campo, valor in request.POST.items():
+            if campo == 'csrfmiddlewaretoken':
+                continue
+
+            if not valor.strip():
+                vazio[campo] = True
+
+        if vazio:
+            check = False
+            return render(request, 'core/cadastro.html', {
+                'vazio': vazio,
+                'dados': request.POST
+                })
+
+        if User.objects.filter(email=email).exists():
+            check = False
+            aviso = 1
+            return render(request, 'core/cadastro.html', {'aviso':aviso})
+
+        if not (8 <= len(senha1) <= 12):
+            check = False
+            aviso = 2
+            return render(request, 'core/cadastro.html', {'aviso':aviso})
         
+        if not re.search(r"[A-Za-z]", senha1) or not re.search(r"[0-9]", senha1):
+            check = False
+            aviso = 3
+            return render(request, 'core/cadastro.html', {'aviso':aviso})
+        
+        if re.match(r'^(?:[^A-Z]*|[^a-z]*)$', senha1):
+            check = False
+            aviso = 4
+            return render(request, 'core/cadastro.html', {'aviso':aviso})
+
+        if senha1 != senha2:
+            check = False
+            aviso = 5
+            return render(request, 'core/cadastro.html', {'aviso':aviso})
+        
+        if check == True:
+            User.objects.create_user(username=nome, first_name=nome, email=email, password=senha1)
+            return redirect("login")
+        
+
+
     return render(request, 'core/cadastro.html')
 
 def login(request):

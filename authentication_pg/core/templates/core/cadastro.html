@@ -13,29 +13,52 @@
     <form action="{% url 'cadastro' %}" method="POST" class="form">
         {% csrf_token %}
 
+      {% with dados=request.POST %}
       <div>
-        <label>Nome</label>
-        <input type="text" name="nome" placeholder="Seu nome">
+        <label class="{% if vazio.nome %}label-vazio{% endif %}" >Nome</label>
+        <input type="text" name="nome" placeholder="Seu nome" class="{% if vazio.nome %}input-vazio{% endif %}" value="{{ dados.nome }}">
+      </div>
+
+      <div class="info">
+        <div>
+          <label class="{% if vazio.email %}label-vazio{% endif %}" >Email</label>
+          <input type="email" name="email" placeholder="Seu email" class="{% if vazio.email %}input-vazio{% endif %}" value="{{ dados.email }}">
+        </div>
+
+        <div>
+          <p class="{% if aviso == 1 %}msg-info{% endif %}">Esse email já está em uso</p>
+        </div>
       </div>
 
       <div>
-        <label>Email</label>
-        <input type="email" name="email" placeholder="Seu email">
+        <label class="{% if vazio.senha1 %}label-vazio{% endif %}" >Senha</label>
+        <input type="password" name="senha1" placeholder="Sua senha" class="{% if vazio.senha1 %}input-vazio{% endif %}">
       </div>
 
-      {% for message in messages %}
-      <p id="email-existe">{{ message }}</p>
-      {% endfor %}
+      <div class="info">
+        <div>
+          <label class="alinhar {% if vazio.senha2 %}label-vazio{% endif %}" >Confirme</label>
+          <input type="password" name="senha2" placeholder="Confirme sua senha" class="{% if vazio.senha2 %}input-vazio{% endif %}">
+        </div>
 
-      <div>
-        <label>Senha</label>
-        <input type="password" name="senha1" placeholder="Sua senha">
+        <div>
+          <p class="{% if aviso == 2 %}msg-info{% endif %}">Sua senha deve ter entre 8 e 12 digitos</p>
+        </div>
+
+        <div>
+          <p class="{% if aviso == 3 %}msg-info{% endif %}">Sua senha deve conter letras e números</p>
+        </div>
+
+        <div>
+          <p class="{% if aviso == 4 %}msg-info{% endif %}">A senha deve ter letras maiúsculas e minusculas</p>
+        </div>
+
+        <div>
+          <p class="{% if aviso == 5 %}msg-info{% endif %}">As senhas não estão iguais</p>
+        </div>
       </div>
 
-      <div>
-        <label class="alinhar" >Confirme</label>
-        <input type="password" name="senha2" placeholder="Confirme sua senha">
-      </div>
+      {% endwith %}
 
       <button class="btn" type="submit">Enviar</button>
 

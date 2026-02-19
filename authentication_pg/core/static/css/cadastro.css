@@ -14,19 +14,20 @@ form {
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     display: flex;
     flex-direction: column;
-    gap: 27px;
+    gap: 20px;
 }
 
-div {
+form div {
     display: flex;
     justify-content: space-between;
 }
 
+/* Unico*/
 .alinhar {
     margin-right: 10px;
 }
 
-
+/* Reutilizavel */
 .btn {
     width: 70px;
     background-color: #cb9530;
@@ -34,10 +35,34 @@ div {
     color: #fff;
 }
 
-#email-existe {
-    color: red;
-    font-size: 12px;
-    position: absolute;
-    bottom: 52%;
-    right: 22%;
+/* Reutilizavel */
+.input-vazio {
+    border: 2px solid rgba(255, 59, 59, 0.746);
+    border-radius: 3px;
 }
+
+/* Reutilizavel */
+.label-vazio {
+    color:rgba(255, 59, 59, 0.746);
+}
+
+p {
+    display: none;
+}
+
+/* Reutilizavel */
+.msg-info {
+    margin-bottom: 0 !important;
+    display: block;
+    color: red;
+    font-size: 13.5px;
+}
+
+/* Reutilizavel */
+.info {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
