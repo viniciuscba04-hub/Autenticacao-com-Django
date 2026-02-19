@@ -6,6 +6,7 @@
 }
 
 form {
+    position: relative;
     text-align: center;
     background: #fff;
     padding: 40px;
@@ -13,7 +14,7 @@ form {
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 27px;
 }
 
 div {
@@ -29,10 +30,14 @@ div {
 .btn {
     width: 70px;
     background-color: #cb9530;
-    border-radius: 5px;
+    border-radius: 10px;
     color: #fff;
 }
 
-.email-exists {
+#email-existe {
     color: red;
+    font-size: 12px;
+    position: absolute;
+    bottom: 52%;
+    right: 22%;
 }

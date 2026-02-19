@@ -21,23 +21,20 @@
       <div>
         <label>Email</label>
         <input type="email" name="email" placeholder="Seu email">
-        {% if messages %}
-          <ul class="messages">
-            {% for message in messages %}
-            <li {% if message.info %} class="{{ message.info }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-          </ul>
-        {% endif %}
       </div>
+
+      {% for message in messages %}
+      <p id="email-existe">{{ message }}</p>
+      {% endfor %}
 
       <div>
         <label>Senha</label>
-        <input type="password1" name="senha" placeholder="Sua senha">
+        <input type="password" name="senha1" placeholder="Sua senha">
       </div>
 
       <div>
         <label class="alinhar" >Confirme</label>
-        <input type="password2" name="senhacheck" placeholder="Confirme sua senha">
+        <input type="password" name="senha2" placeholder="Confirme sua senha">
       </div>
 
       <button class="btn" type="submit">Enviar</button>
