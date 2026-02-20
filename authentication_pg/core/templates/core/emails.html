@@ -1,0 +1,23 @@
+{% extends "core/base.html" %}
+
+{% block css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/cadastro.css' %}">
+{% endblock %}
+
+{% block title %}verificação{% endblock %}
+
+{% block content %}
+<section class="cadastro-container">
+    <form action="{% url 'email' %}" method="POST">
+        {% csrf_token %}
+        <label>Código enviado por email</label>
+        <ul>
+            <input type="number" min="0" max="9">
+            <input type="number" min="0" max="9">
+            <input type="number" min="0" max="9">
+            <input type="number" min="0" max="9">
+        </ul>
+    </form>
+</section>
+{% endblock %}  

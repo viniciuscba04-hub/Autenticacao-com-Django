@@ -1,11 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from django.contrib import messages
-from . import tags
-from django.http import HttpResponse
 import re
 from django.shortcuts import redirect
+from . import emails
 
 # Create your views here.
 
@@ -67,14 +65,13 @@ def cadastro(request):
             return render(request, 'core/cadastro.html', {'aviso':aviso})
         
         if check == True:
-            User.objects.create_user(username=nome, first_name=nome, email=email, password=senha1)
-            return redirect("login")
+            emails.send_email(email)
+            return redirect('email')
         
-
-
     return render(request, 'core/cadastro.html')
 
-def login(request):
+def verifica_email(request):
+    return render(request, 'core/emails.html')
+
+def login_user(request):
     return render(request, 'core/login.html')
-
-

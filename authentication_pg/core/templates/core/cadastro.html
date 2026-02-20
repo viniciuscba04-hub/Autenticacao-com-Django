@@ -7,11 +7,10 @@
 
 {% block title %}Cadastre-se{% endblock %}
 
-<body>
   {% block content %}
   <section class="cadastro-container">
-    <form action="{% url 'cadastro' %}" method="POST" class="form">
-        {% csrf_token %}
+    <form action="{% url 'cadastro' %}" method="POST">
+      {% csrf_token %}
 
       {% with dados=request.POST %}
       <div>
@@ -65,4 +64,3 @@
     </form>
   </section>
   {% endblock %}
-</body>
