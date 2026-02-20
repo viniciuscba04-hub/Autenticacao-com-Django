@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from django.contrib import messages
-from . import tags
 from django.http import HttpResponse
 import re
 from django.shortcuts import redirect
@@ -67,14 +65,47 @@ def cadastro(request):
             return render(request, 'core/cadastro.html', {'aviso':aviso})
         
         if check == True:
-            User.objects.create_user(username=nome, first_name=nome, email=email, password=senha1)
-            return redirect("login")
+            User.objects.create_user(username=email, first_name=nome, email=email, password=senha1)
+            return redirect('login')
         
-
 
     return render(request, 'core/cadastro.html')
 
-def login(request):
+def login_user(request):
+    if request.method == 'POST':
+
+        check = True
+        aviso = 0
+        vazio = {}
+
+        email = request.POST.get('email', '').strip()
+        senha = request.POST.get('senha', '').strip()
+
+        for campo, valor in request.POST.items():
+            if campo == 'csrfmiddlewaretoken':
+                continue
+
+            if not valor.strip():
+                vazio[campo] = True
+
+        if vazio:
+            check = False
+            return render(request, 'core/cadastro.html', {
+                'vazio': vazio,
+                'dados': request.POST
+                })
+        
+        if check == True:
+            new_user = authenticate(request, username=email, password=senha)
+            if new_user:
+                login(new_user)
+                return render(request, 'core/index.html')
+            
+            aviso = 1
+            return render(request, 'core/login.html', {'aviso':aviso})
+            
+            
+        
     return render(request, 'core/login.html')
 
 

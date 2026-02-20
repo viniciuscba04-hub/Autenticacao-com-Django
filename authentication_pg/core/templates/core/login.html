@@ -3,5 +3,30 @@
 {% block title %}Wellcome{% endblock %}
 
 {% block content %}
-    <h1>Parabéns, você está autenticado!</h1>
+<section class="cadastro-container">
+    <form action="{% url 'cadastro' %}" method="POST" class="form">
+        {% csrf_token %}
+
+        {% with dados=request.POST %}
+        <div>
+            <label class="{% if vazio.email %}label-vazio{% endif %}" >Email</label>
+            <input type="email" name="email" placeholder="Seu email" class="{% if vazio.email %}input-vazio{% endif %}" value="{{ dados.email }}">
+        </div>
+
+        <div class="info">
+            <div>
+                <label class="{% if vazio.senha %}label-vazio{% endif %}" >Confirme</label>
+                <input type="password" name="senha" placeholder="Sua senha" class="{% if vazio.senha %}input-vazio{% endif %}" value="{{ dados.senha }}">
+            </div>
+
+            <div>
+                <p class="{% if aviso == 1 %}msg-info{% endif %}">Email ou senha incorretos</p>
+            </div>
+        </div>
+        {% endwith %}
+
+        <button class="btn" type="submit">Enviar</button>
+
+    </form>
+</section>
 {% endblock %}
