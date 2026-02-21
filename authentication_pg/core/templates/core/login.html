@@ -1,10 +1,14 @@
-{% extends 'core/base.html' %}
+{% extends "core/base.html" %}
 
-{% block title %}Wellcome{% endblock %}
+{% block css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/cadastro.css' %}">
+{% endblock %}
+{% block title %}Login{% endblock %}
 
 {% block content %}
 <section class="cadastro-container">
-    <form action="{% url 'cadastro' %}" method="POST" class="form">
+    <form action="{% url 'login' %}" method="POST" class="form">
         {% csrf_token %}
 
         {% with dados=request.POST %}
@@ -15,8 +19,8 @@
 
         <div class="info">
             <div>
-                <label class="{% if vazio.senha %}label-vazio{% endif %}" >Confirme</label>
-                <input type="password" name="senha" placeholder="Sua senha" class="{% if vazio.senha %}input-vazio{% endif %}" value="{{ dados.senha }}">
+                <label class="{% if vazio.senha %}label-vazio{% endif %}" >Senha</label>
+                <input type="password" name="senha" placeholder="Sua senha" class="{% if vazio.senha %}input-vazio{% endif %}">
             </div>
 
             <div>

@@ -90,7 +90,7 @@ def login_user(request):
 
         if vazio:
             check = False
-            return render(request, 'core/cadastro.html', {
+            return render(request, 'core/login.html', {
                 'vazio': vazio,
                 'dados': request.POST
                 })
@@ -98,8 +98,8 @@ def login_user(request):
         if check == True:
             new_user = authenticate(request, username=email, password=senha)
             if new_user:
-                login(new_user)
-                return render(request, 'core/index.html')
+                login(request, new_user)
+                return HttpResponse('vc está autenticado')
             
             aviso = 1
             return render(request, 'core/login.html', {'aviso':aviso})
