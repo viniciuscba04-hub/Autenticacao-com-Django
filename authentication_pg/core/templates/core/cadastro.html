@@ -10,7 +10,7 @@
 <body>
   {% block content %}
   <section class="cadastro-container">
-    <form action="{% url 'cadastro' %}" method="POST" class="form">
+    <form action="{% url 'cadastro' %}" method="POST">
         {% csrf_token %}
 
       {% with dados=request.POST %}

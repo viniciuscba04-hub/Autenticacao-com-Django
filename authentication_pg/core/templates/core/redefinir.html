@@ -1,0 +1,20 @@
+{% extends "core/base.html" %}
+
+{% block css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/cadastro.css' %}">
+{% endblock %}
+
+{% block title %}verificação{% endblock %}
+
+{% block content %}
+<section class="cadastro-container">
+    <form action="{% url 'redefinir' %}" method="POST">
+        {% csrf_token %}
+        <label>Código enviado por email</label>
+        <input type="tel" name="codigo" inputmod="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+        <p class="{% if aviso == 1 %}msg-info{% endif %}">Código invalido</p>
+        <button type="submit">Enviar</button>
+    </form>
+</section>
+{% endblock %}  

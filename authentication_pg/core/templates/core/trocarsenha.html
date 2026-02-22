@@ -1,0 +1,50 @@
+{% extends "core/base.html" %}
+
+{% block css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/cadastro.css' %}">
+{% endblock %}
+
+{% block title %}Redefinir{% endblock %}
+
+{% block content %}
+<section class="cadastro-container">
+    <form action="{% url 'trocarsenha' %}" method="POST">
+        {% csrf_token %}
+        <div>
+            <label class="alinhar {% if vazio.senha1 %}label-vazio{% endif %}" >Nova Senha</label>
+            <input type="password" name="senha1" placeholder="Sua senha" class="{% if vazio.senha1 %}input-vazio{% endif %}">
+        </div>
+
+        <div class="info">
+            <div>
+                <label class="alinhar {% if vazio.senha2 %}label-vazio{% endif %}" >Confirme</label>
+                <input type="password" name="senha2" placeholder="Confirme sua senha" class="{% if vazio.senha2 %}input-vazio{% endif %}">
+            </div>
+
+            <div>
+                <p class="{% if aviso == 2 %}msg-info{% endif %}">Sua senha deve ter entre 8 e 12 digitos</p>
+            </div>
+
+            <div>
+                <p class="{% if aviso == 3 %}msg-info{% endif %}">Sua senha deve conter letras e números</p>
+            </div>
+
+            <div>
+                <p class="{% if aviso == 4 %}msg-info{% endif %}">A senha deve ter letras maiúsculas e minusculas</p>
+            </div>
+
+            <div>
+                <p class="{% if aviso == 5 %}msg-info{% endif %}">As senhas não estão iguais</p>
+            </div>
+
+            <div>
+                <p class="{% if aviso == 6 %}msg-info{% endif %}">A sua nova senha não pode ser igual a senha atual</p>
+            </div>
+      </div>
+
+      <button class="btn" type="submit">Enviar</button>
+
+    </form>
+</section>
+{% endblock %}  

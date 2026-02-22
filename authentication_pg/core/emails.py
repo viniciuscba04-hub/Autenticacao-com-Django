@@ -6,7 +6,7 @@ code = []
 
 def gerar_codigo():
     code.clear()
-    for _ in range(4):
+    for _ in range(6):
         code.append(str(randint(0, 9)))
     return ''.join(code)
 
@@ -29,4 +29,4 @@ def send_email(destinatario):
         server.ehlo()
         server.login(sender, password)
         server.sendmail(sender, destinatario, msg.as_string())
-    print('email enviado')
+    return codigo
